@@ -1,2 +1,4 @@
 # Project exclude paths
 /shop-utils/target/
+/shop-cloud-alibaba.iml
+/shop-bean/shop-bean.iml
