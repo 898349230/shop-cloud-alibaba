@@ -11,5 +11,12 @@
 
     <artifactId>shop-product</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.ab.shop</groupId>
+            <artifactId>shop-bean</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 
 </project>
