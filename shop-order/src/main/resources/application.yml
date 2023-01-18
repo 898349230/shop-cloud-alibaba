@@ -66,6 +66,7 @@ spring:
         port: 9999
         # Sentinel控制台服务地址
         dashboard: 127.0.0.1:8080
+      web-context-unify: false
 
 # 开启Feign对Sentinel的支持。
 feign:
