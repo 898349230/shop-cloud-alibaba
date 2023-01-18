@@ -22,4 +22,10 @@ public class UserController {
         log.info("获取到的用户信息为：{}", JSONObject.toJSONString(user));
         return user;
     }
+
+    @GetMapping(value = "/api1/demo1")
+    public String api1Demo1(){
+        log.info("访问了api1Demo1接口");
+        return "api1Demo1";
+    }
 }
