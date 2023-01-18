@@ -3,3 +3,8 @@
 /shop-cloud-alibaba.iml
 /shop-bean/shop-bean.iml
 /.idea/vcs.xml
+/shop-product/target/
+/shop-user/target/
+/shop-bean/target/
+/shop-gateway/target/
+/shop-order/target/
