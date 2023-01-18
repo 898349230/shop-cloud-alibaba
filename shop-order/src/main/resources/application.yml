@@ -2,6 +2,9 @@ server:
   port: 8080
   servlet:
     context-path: /order
+  # Tomcat处理请求的最大并发数
+  tomcat:
+    max-threads: 20
 
 spring:
   application:
@@ -57,3 +60,14 @@ spring:
     nacos:
       discovery:
         server-addr: 127.0.0.1:8848
+    sentinel:
+      transport:
+        # 指定和Sentinel控制台交互的端口，任意指定一个未使用的端口即可
+        port: 9999
+        # Sentinel控制台服务地址
+        dashboard: 127.0.0.1:8080
+
+# 开启Feign对Sentinel的支持。
+feign:
+  sentinel:
+    enabled: true

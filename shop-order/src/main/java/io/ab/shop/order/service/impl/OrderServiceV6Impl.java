@@ -18,19 +18,18 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.client.RestTemplate;
 
 import java.math.BigDecimal;
 
 
 /**
- * @author feign 调用
+ * @author 增加熔断限流
  * @version 1.0.0
  * @description
  */
 @Slf4j
-@Service("orderServiceV5")
-public class OrderServiceV5Impl implements OrderService {
+@Service("orderServiceV6")
+public class OrderServiceV6Impl implements OrderService {
 
     @Autowired
     private OrderMapper orderMapper;
@@ -55,10 +54,16 @@ public class OrderServiceV5Impl implements OrderService {
         if (user == null){
             throw new RuntimeException("未获取到用户信息: " + JSONObject.toJSONString(orderParams));
         }
+        if (user.getId() == -1L || user.getId() == -2L){
+            throw new RuntimeException("触发了用户微服务的容错逻辑: " + JSONObject.toJSONString(orderParams));
+        }
         Product product = productService.getProduct(orderParams.getProductId());
         log.info("[saveOrder] product = {}", JSON.toJSONString(product));
         if (product == null){
             throw new RuntimeException("未获取到商品信息: " + JSONObject.toJSONString(orderParams));
+        }
+        if (product.getId() == -1){
+            throw new RuntimeException("触发了商品微服务的容错逻辑: " + JSONObject.toJSONString(orderParams));
         }
         if (product.getProStock() < orderParams.getCount()){
             throw new RuntimeException("商品库存不足: " + JSONObject.toJSONString(orderParams));
