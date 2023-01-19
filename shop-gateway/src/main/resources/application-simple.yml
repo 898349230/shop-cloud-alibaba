@@ -17,25 +17,10 @@ spring:
         - id: user-gateway
           uri: http://localhost:8060
           order: 1
-#          断言
           predicates:
             - Path=/server-user/**
-#           IP地址断言
-#            - RemoteAddr=192.168.0.1/24
-#           方法断言
-#            - Method=GET
-#           自定义断言， 对应 NameRoutePredicateFactory
-#            - Name=abc
           filters:
             - StripPrefix=1
-#           过滤器 增加请求头 ip=localhost
-#            - AddRequestHeader=IP,localhost
-#           过滤器 增加请求参数 name=abb
-#            - AddRequestParameter=name,abb
-#           过滤器 设置返回状态 1001
-#            - SetStatus=1001
-#             自定义局部过滤器实现灰度发布， GrayscaleGatewayFilterFactory
-            - Grayscale=true
 
         - id: product-gateway
           uri: http://localhost:8070
