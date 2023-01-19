@@ -62,9 +62,9 @@ public class GatewayConfig {
     @PostConstruct
     public void init(){
 //        route维度的限流
-        this.initGatewayRules();
+//        this.initGatewayRules();
 //        自定义 API 维度分组
-//        this.initCustomizedApis();
+        this.initCustomizedApis();
         this.initBlockHandlers();
     }
 
@@ -140,7 +140,7 @@ public class GatewayConfig {
             public Mono<ServerResponse> handleRequest(ServerWebExchange serverWebExchange, Throwable throwable) {
                 Map map = new HashMap<>();
                 map.put("code", 1001);
-                map.put("codeMsg", "接口被限流了");
+                map.put("codeMsg", "接口被限流了，网关限流");
                 return ServerResponse.status(HttpStatus.OK).
                         contentType(MediaType.APPLICATION_JSON_UTF8).
                         body(BodyInserters.fromObject(map));
