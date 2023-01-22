@@ -3,7 +3,20 @@ server:
 spring:
   application:
     name: server-gateway
+  main:
+    allow-bean-definition-overriding: true
   cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+    sentinel:
+      transport:
+        port: 7777
+        dashboard: 127.0.0.1:8080
+      web-context-unify: false
+      #      程序启动时，流控规则是否立即注册到Sentinel，配置为true表示立即注册到Sentinel。
+      eager: true
+
     gateway:
       globalcors:
         cors-configurations:
@@ -12,43 +25,11 @@ spring:
             allowedMethods: "*"
             allowCredentials: true
             allowedHeaders: "*"
-
-      routes:
-        - id: user-gateway
-          uri: http://localhost:8060
-          order: 1
-#          断言
-          predicates:
-            - Path=/server-user/**
-#           IP地址断言
-#            - RemoteAddr=192.168.0.1/24
-#           方法断言
-#            - Method=GET
-#           自定义断言， 对应 NameRoutePredicateFactory
-#            - Name=abc
-          filters:
-            - StripPrefix=1
-#           过滤器 增加请求头 ip=localhost
-#            - AddRequestHeader=IP,localhost
-#           过滤器 增加请求参数 name=abb
-#            - AddRequestParameter=name,abb
-#           过滤器 设置返回状态 1001
-#            - SetStatus=1001
-#             自定义局部过滤器实现灰度发布， GrayscaleGatewayFilterFactory
-            - Grayscale=true
-
-        - id: product-gateway
-          uri: http://localhost:8070
-          order: 1
-          predicates:
-            - Path=/server-product/**
-          filters:
-            - StripPrefix=1
-
-        - id: order-gateway
-          uri: http://localhost:8080
-          order: 1
-          predicates:
-            - Path=/server-order/**
-          filters:
-            - StripPrefix=1
+      discovery:
+        locator:
+          enabled: true
+          route-id-prefix: gateway-
+# 配置抽样采集数据。
+  sleuth:
+    sampler:
+      probability: 1.0

@@ -37,7 +37,24 @@ public class UserController {
         log.info("访问了apiFilter1接口");
         String ip = request.getHeader("IP");
         String name = request.getParameter("name");
-        log.info("ip = " + ip + ", name = " + name);
+        String traceId = request.getParameter("traceId");
+        log.info("ip = " + ip + ", name = " + name + ", traceId = " + traceId);
         return "apiFilter1";
+    }
+
+    @GetMapping(value = "/async/api")
+    public String asyncApi() {
+        log.info("执行异步任务开始...");
+        userService.asyncMethod();
+        log.info("异步任务执行结束...");
+        return "asyncApi";
+    }
+
+    @GetMapping(value = "/sleuth/filter/api")
+    public String sleuthFilter(HttpServletRequest request) {
+        Object traceIdObj = request.getAttribute("traceId");
+        String traceId = traceIdObj == null ? "" : traceIdObj.toString();
+        log.info("获取到的traceId为: " + traceId);
+        return "sleuthFilter";
     }
 }
