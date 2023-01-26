@@ -32,4 +32,10 @@ spring:
 # 配置抽样采集数据。
   sleuth:
     sampler:
+#      表示Sleuth的采样百分比
       probability: 1.0
+  zipkin:
+#    ZipKin服务端的地址。
+    base-url: http://127.0.0.1:9411
+#    配置成false，使Nacos将其当成一个URL，不要按服务名处理。
+    discovery-client-enabled: false
