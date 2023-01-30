@@ -20,7 +20,7 @@ import javax.annotation.Resource;
 public class OrderController {
 
     @Autowired
-    @Qualifier(value = "orderServiceV6")
+    @Qualifier(value = "orderServiceV7")
     private OrderService orderService;
 
     @GetMapping(value = "/submit_order")
