@@ -9,8 +9,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.annotation.Resource;
-
 /**
  * @version 1.0.0
  * @description 订单接口
@@ -20,7 +18,7 @@ import javax.annotation.Resource;
 public class OrderController {
 
     @Autowired
-    @Qualifier(value = "orderServiceV7")
+    @Qualifier(value = "orderServiceV8")
     private OrderService orderService;
 
     @GetMapping(value = "/submit_order")
